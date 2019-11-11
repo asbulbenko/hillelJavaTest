@@ -3,23 +3,22 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class CollectionTests {
+    private Collection collection = new Collection();
+    private final String [] merchantArray = {"Amazon", "eBay", "Target", "Walmart", "BestBuy", "Costco"};
 
     @Test
     public void testCreatedCollectionSize() {
-        Collection collection = new Collection();
         assertEquals("Collection size should be 0 after creation", 0, collection.size());
     }
 
     @Test
     public void testAbleAddToCollection() {
-        Collection collection = new Collection();
         assertTrue("Adding to collection should be true", collection.add("Amazon"));
         assertEquals("Size should be 1 after adding one element to collection",1, collection.size());
     }
 
     @Test
     public void testContentInCollection() {
-        Collection collection = new Collection();
         collection.add("eBay");
         assertTrue(collection.contains("eBay"));
         assertNotEquals("ebay", collection.get(0));
@@ -34,15 +33,12 @@ public class CollectionTests {
     @Test
     public void testAppendAllElementsToCollection() {
         // Adding 6 elements to collection
-        String [] merchantArray = {"Amazon", "eBay", "Target", "Walmart", "BestBuy", "Costco"};
-        Collection collection = new Collection();
         assertTrue("Able to add array to collection", collection.addAll(merchantArray));
         assertEquals("Collection should contain all 6 elements from array", 6, collection.size());
     }
 
     @Test
     public void testAppendAllElementsToEndOfCollection() {
-        Collection collection = new Collection();
         collection.add("Amazon");
         collection.add("eBay");
         collection.add("Bolt");
@@ -58,9 +54,7 @@ public class CollectionTests {
 
     @Test
     public void testCompareCollection() {
-        Collection collection = new Collection();
         Collection collection1 = new Collection();
-        String [] merchantArray = {"BestBuy", "Costco", "DrugStore"};
         collection.addAll(merchantArray);
         collection1.addAll(merchantArray);
 
@@ -69,8 +63,7 @@ public class CollectionTests {
     }
 
     @Test
-    public void testCollectionGotEmpty() {
-        Collection collection = new Collection();
+    public void testCollectionShouldBeEmptySize() {
         collection.add("Ikea");
         assertEquals(1, collection.size());
         collection.clear();
@@ -79,7 +72,6 @@ public class CollectionTests {
 
     @Test
     public void testDeleteIndexFromCollection() {
-        Collection collection = new Collection();
         collection.add("Ikea");
         assertEquals(1, collection.size());
         assertFalse("Unable to delete out of scope", collection.delete(6));
@@ -89,8 +81,6 @@ public class CollectionTests {
 
     @Test
     public void testDeleteByElementFromCollection() {
-        String [] merchantArray = {"Amazon", "eBay", "Target", "Walmart", "BestBuy", "Costco"};
-        Collection collection = new Collection();
         collection.addAll(merchantArray);
         assertEquals(6, collection.size());
         assertTrue("Element 'Target' exists in collection", collection.contains("Target"));
@@ -101,8 +91,6 @@ public class CollectionTests {
 
     @Test
     public void testCollectionTrimmed() {
-        Collection collection = new Collection();
-        String [] merchantArray = {"Amazon", "eBay", "Target", "Walmart", "BestBuy", "Costco"};
         collection.addAll(merchantArray);
         assertFalse("Nothing in collection to trim", collection.trim());
         collection.add("BBB");

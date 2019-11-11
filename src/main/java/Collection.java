@@ -107,6 +107,7 @@ public class Collection implements CustomCollection {
         for (int i = 0; i < arr.length; i++) {
             arr[i] = "";
         }
+        count=0;
         System.out.println("Collection was set to empty values");
         return true;
     }
