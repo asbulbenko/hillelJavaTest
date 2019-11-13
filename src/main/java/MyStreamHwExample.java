@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class AverageIntegerStream {
+public class MyStreamHwExample {
 
     public List<Integer> addingRandomNumbers(){
         List<Integer> list = new ArrayList<>();
