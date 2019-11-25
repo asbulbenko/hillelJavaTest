@@ -1,4 +1,5 @@
-import com.sun.tools.javac.util.Pair;
+//import com.sun.tools.javac.util.Pair;
+//import com.sun.tools.javac.util.Pair;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -25,11 +26,11 @@ public class MyStreamHwExampleTests {
     @Test
     public void shouldReturnUpperCaseForPairStringCollection() {
         assertFalse("Input string should not be empty",  listString.isEmpty());
-        List<Pair> pairs = listString.stream()
-                .map(str -> str.toUpperCase())
-                .map(i -> new Pair(i, null))
-                .collect(Collectors.toList());
-        System.out.println(pairs);
+//        List<Pair> pairs = listString.stream()
+//                .map(str -> str.toUpperCase())
+//                .map(i -> new Pair(i, null))
+//                .collect(Collectors.toList());
+//        System.out.println(pairs);
     }
 
 
