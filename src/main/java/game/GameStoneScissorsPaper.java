@@ -5,15 +5,13 @@ import java.util.Scanner;
 
 public class GameStoneScissorsPaper {
     public static void main(String[] args) throws IOException {
-        GameResults gameResults = new GameResults();
         System.out.println("Игра камень, ножницы, бумага");
         Scanner sc = new Scanner(System.in);
         System.out.println("Введите кол-во игр готовых сыграть");
         int count = sc.nextInt();
 
-        Choice compMove = getCompChoice();
-
-
+        // init results
+        GameResults gameResults = new GameResults();
         StringBuilder strResults = new StringBuilder();
 
         // loop game
@@ -23,47 +21,40 @@ public class GameStoneScissorsPaper {
             Choice choiceUser = getChoice(userMove);
 
             if (choiceUser != null) {
-
-                String results = gameResults.getResults(compMove, choiceUser);
-                System.out.println(results);
-                System.out.println("ЮЗЕР ВЫБРАЛ - " + choiceUser);
-
                 // choice of computer to make a move
-
+                Choice compMove = getCompChoice();
+                System.err.println("Компьютер выбрал - " + compMove);
                 // determine who is the winner
+                String results = gameResults.getResults(compMove, choiceUser);
+                // print some results into console
+                System.out.println(results);
 
                 // appending new results into strResults
-                String stringResults = "Резуьтат игры №" + (i + 1) + " " + System.currentTimeMillis() + " -- " + results + System.lineSeparator();
+                String stringResults = "Результат игры №" + (i + 1) + " " + System.currentTimeMillis() + " -- " + results + System.lineSeparator();
                 strResults = strResults.append(stringResults);
             }else {
                 break;
             }
-
         }
-
+        // write results to file
         results(strResults);
-
     }
 
-    // выбор компьютера
+    // computer move in game
     private static Choice getCompChoice() {
         double compChoice = Math.random();
         Choice compMove;
-        System.out.println("compChoice = " + compChoice);
         if (compChoice < 0.33) {
-            System.out.println("Выбор компа - Камень");
             compMove = Choice.STONE;
         } else if (compChoice > 0.67) {
-            System.out.println("Выбор компа - Бумага");
             compMove = Choice.PAPER;
         } else {
-            System.out.println("Выбор компа - Ножницы");
             compMove = Choice.SCISSORS;
         }
         return compMove;
     }
 
-    // выбор пользователя
+    // user move in game
     private static Choice getChoice(int userMove) throws IOException {
         switch (userMove) {
             case 1:
