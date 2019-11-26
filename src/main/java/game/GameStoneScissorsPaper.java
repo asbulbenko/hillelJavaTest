@@ -1,44 +1,50 @@
 package game;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.MessageFormat;
-import java.util.Date;
 import java.util.Scanner;
 
 public class GameStoneScissorsPaper {
     public static void main(String[] args) throws IOException {
-            System.out.println("Игра камень, ножницы, бумага");
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Введите кол-во игр готовых сыграть");
-            int count = sc.nextInt();
+        GameResults gameResults = new GameResults();
+        System.out.println("Игра камень, ножницы, бумага");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Введите кол-во игр готовых сыграть");
+        int count = sc.nextInt();
 
-            StringBuilder strResults = new StringBuilder();
+        Choice compMove = getCompChoice();
 
-            // loop game
-            for(int i=0; i < count; i++) {
-                System.out.println("Сделайте свой выбор: 1-Камень  2-Ножницы  3-Бумага");
-                int userMove = sc.nextInt();
-                Choice choiceUser = getChoice(userMove);
+
+        StringBuilder strResults = new StringBuilder();
+
+        // loop game
+        for (int i = 0; i < count; i++) {
+            System.out.println("Сделайте свой выбор: 1-Камень  2-Ножницы  3-Бумага или 0 - для выхода из игры");
+            int userMove = sc.nextInt();
+            Choice choiceUser = getChoice(userMove);
+
+            if (choiceUser != null) {
+
+                String results = gameResults.getResults(compMove, choiceUser);
+                System.out.println(results);
                 System.out.println("ЮЗЕР ВЫБРАЛ - " + choiceUser);
 
                 // choice of computer to make a move
-                Choice compMove = getCompChoice();
 
                 // determine who is the winner
-                GameResults gameResults = new GameResults();
-                System.out.println(gameResults.getResults(compMove, choiceUser));
 
                 // appending new results into strResults
-                String stringResults = "Резуьтат игры №" + (i+1) + " " + System.currentTimeMillis() + " -- " + gameResults.getResults(compMove, choiceUser) + System.lineSeparator();
+                String stringResults = "Резуьтат игры №" + (i + 1) + " " + System.currentTimeMillis() + " -- " + results + System.lineSeparator();
                 strResults = strResults.append(stringResults);
+            }else {
+                break;
             }
+
+        }
 
         results(strResults);
 
     }
+
     // выбор компьютера
     private static Choice getCompChoice() {
         double compChoice = Math.random();
@@ -59,21 +65,21 @@ public class GameStoneScissorsPaper {
 
     // выбор пользователя
     private static Choice getChoice(int userMove) throws IOException {
-            switch (userMove) {
-                case 1:
-                    System.out.println("Ваш выбор - Камень");
-                    return Choice.STONE;
-                case 2:
-                    System.out.println("Ваш выбор - Ножницы");
-                    return Choice.SCISSORS;
-                case 3:
-                    System.out.println("Ваш выбор - Бумага");
-                    return Choice.PAPER;
-//                case 0:
-//                    System.exit(1);
-                default:
-                    throw new IOException("Такая цифра " + userMove + " игрой не поддерживается");
-            }
+        switch (userMove) {
+            case 1:
+                System.out.println("Ваш выбор - Камень");
+                return Choice.STONE;
+            case 2:
+                System.out.println("Ваш выбор - Ножницы");
+                return Choice.SCISSORS;
+            case 3:
+                System.out.println("Ваш выбор - Бумага");
+                return Choice.PAPER;
+            case 0:
+                return null;
+            default:
+                throw new IOException("Такая цифра " + userMove + " игрой не поддерживается");
+        }
     }
 
     private static void results(StringBuilder str) throws IOException {
@@ -84,5 +90,5 @@ public class GameStoneScissorsPaper {
     }
 
 
- }
+}
 
