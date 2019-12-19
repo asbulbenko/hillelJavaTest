@@ -8,7 +8,7 @@ public class StudentsDBSearch {
     private static final String dbUrl = "jdbc:mysql://localhost:3306/testDB";
     private static final String user = "root";
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, InterruptedException {
         Connection connection = DriverManager.getConnection(dbUrl,user,"");
         System.out.println("SQL Connection to database established!");
         Statement mySt = connection.createStatement();
@@ -26,7 +26,7 @@ public class StudentsDBSearch {
                 getAllStudentList(mySt);
                 break;
             case 2:
-                getStudentListByGroup(mySt);
+                getStudentListByGroup(mySt, connection);
                 break;
             case 3:
                 getStudentListByEnterYear(mySt);
@@ -52,12 +52,23 @@ public class StudentsDBSearch {
         }
     }
 
-    private static void getStudentListByGroup(Statement mySt) throws SQLException {
-        ResultSet myRs = mySt.executeQuery("select fio, group_name from students join groups on group_id = groups.id order by groups.id");
-        System.out.println("-----STUDENTS BY GROUP RESULTS-----");
-        while (myRs.next()){
-            System.out.print("Student : " + myRs.getString("fio") + " || Group : " + myRs.getString("group_name"));
+    private static void getStudentListByGroup(Statement mySt, Connection connection) throws SQLException, InterruptedException {
+        System.out.println("Our Student Groups are following :");
+        ResultSet myRss = mySt.executeQuery("select id, group_name from groups");
+        while (myRss.next()){
+            System.out.print("Group id : " + myRss.getInt("id") + " || Group name : " + myRss.getString("group_name"));
             System.out.println();
+        }
+        Scanner sc = new Scanner(System.in);
+        Thread.sleep(1000);
+        System.err.println("Students from which group you want to get results? Input group id you are interested in ");
+        int groupId = sc.nextInt();
+
+        PreparedStatement myPs = connection.prepareStatement("select fio, group_name from students join groups on group_id = groups.id where group_id = ?");
+        myPs.setInt(1, groupId);
+        ResultSet myRs = myPs.executeQuery();
+        while (myRs.next()){
+            System.out.println(myRs.getString("fio"));
         }
     }
 
