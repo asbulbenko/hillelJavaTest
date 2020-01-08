@@ -13,6 +13,8 @@ public class ReplaceLineBreak {
 
         PrintWriter writer = new PrintWriter("src/main/resources/output.txt", "UTF-8");
         writer.append(fileString.replace("\n", ","));
+        // in case need reverse replacement
+//        writer.append(fileString.replace("\",\"", "\n"));
         writer.close();
 
 
