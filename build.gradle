@@ -14,4 +14,9 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.18'
+    compile 'ch.qos.logback:logback-classic:1.2.3'
+    compile 'ch.qos.logback:logback-core:1.2.3'
+    compile "org.slf4j:log4j-over-slf4j:1.7.13"
+    compile group: 'org.slf4j', name:'slf4j-api', version: '1.7.13'
+    runtime 'org.codehaus.groovy:groovy:2.4.15'
 }
